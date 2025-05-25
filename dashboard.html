@@ -1,155 +1,154 @@
-<html>
-  <head>
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-    <link
-      rel="stylesheet"
-      as="style"
-      onload="this.rel='stylesheet'"
-      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
-    />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Prima Vista Lounge</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Prima Vista Lounge</h1>
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="checkin.html">Check-In</a>
+            <a href="passengerrecord.html">Passenger Records</a>
+            <a href="reservation.html">Reservations</a>
+            <a href="report.html">Reports</a>
+            <a href="settings.html">Settings</a>
+            <a href="#" id="logoutButton">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Dashboard</h2>
+        <p>Overview of lounge activity.</p>
 
-    <title>Stitch Design</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+        <section id="stats">
+            <h3>Key Metrics</h3>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <h4>Current Occupancy</h4>
+                    <p id="currentOccupancy">Loading...</p>
+                </div>
+                <div class="stat-item">
+                    <h4>Total Entries Today</h4>
+                    <p id="totalEntriesToday">Loading...</p>
+                </div>
+                <div class="stat-item">
+                    <h4>Average Stay Duration (Today)</h4>
+                    <p id="averageStayDuration">Loading...</p>
+                </div>
+            </div>
+        </section>
 
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  </head>
-  <body>
-    <div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden" style='font-family: Inter, "Noto Sans", sans-serif;'>
-      <div class="layout-container flex h-full grow flex-col">
-        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f1f2f4] px-10 py-3">
-          <div class="flex items-center gap-4 text-[#121416]">
-            <div class="size-4">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_6_319)">
-                  <path
-                    d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
-                    fill="currentColor"
-                  ></path>
-                </g>
-                <defs>
-                  <clipPath id="clip0_6_319"><rect width="48" height="48" fill="white"></rect></clipPath>
-                </defs>
-              </svg>
-            </div>
-            <h2 class="text-[#121416] text-lg font-bold leading-tight tracking-[-0.015em]">Prima Vista Lounge</h2>
-          </div>
-          <div class="flex flex-1 justify-end gap-8">
-            <div class="flex items-center gap-9">
-              <a class="text-[#121416] text-sm font-medium leading-normal" href="#">Dashboard</a>
-              <a class="text-[#121416] text-sm font-medium leading-normal" href="#">Entries</a>
-              <a class="text-[#121416] text-sm font-medium leading-normal" href="#">Reports</a>
-              <a class="text-[#121416] text-sm font-medium leading-normal" href="#">Settings</a>
-            </div>
-            <div
-              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAsAwqjpKaR9EpBGEVMltS3AX6_rxKpw3pKkmEcKCQ2OlWMzewwEsAus2vEShVC1A6Cjj4kvMxAsGFs3zuyRNDNGh4tukzTa41ccJIhnUxRULtTkKBlZ1A3WZSHG4C6bJ7JwDCsDSgkh60aswJbRxi3fjTZdy_vbQAZzXUi5wkV3xEQwnkTGui8G1hbNKy45BlFbr1Ruuv69IYibuNr30kGJrqUb4mqCjPWQ7aedcUH9GoSLj09Aqees4Z7G7DSsb9Vb-2EHRqq1SA");'
-            ></div>
-          </div>
-        </header>
-        <div class="px-40 flex flex-1 justify-center py-5">
-          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
-            <div class="flex flex-wrap justify-between gap-3 p-4">
-              <div class="flex min-w-72 flex-col gap-3">
-                <p class="text-[#121416] tracking-light text-[32px] font-bold leading-tight">Dashboard</p>
-                <p class="text-[#6a7681] text-sm font-normal leading-normal">Overview of lounge activity</p>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-4 p-4">
-              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 bg-[#f1f2f4]">
-                <p class="text-[#121416] text-base font-medium leading-normal">Current Occupancy</p>
-                <p class="text-[#121416] tracking-light text-2xl font-bold leading-tight">45</p>
-              </div>
-              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 bg-[#f1f2f4]">
-                <p class="text-[#121416] text-base font-medium leading-normal">Total Entries Today</p>
-                <p class="text-[#121416] tracking-light text-2xl font-bold leading-tight">120</p>
-              </div>
-              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 bg-[#f1f2f4]">
-                <p class="text-[#121416] text-base font-medium leading-normal">Average Stay Duration</p>
-                <p class="text-[#121416] tracking-light text-2xl font-bold leading-tight">1 hour 30 minutes</p>
-              </div>
-            </div>
-            <h2 class="text-[#121416] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Recent Entries</h2>
-            <div class="px-4 py-3 @container">
-              <div class="flex overflow-hidden rounded-xl border border-[#dde1e3] bg-white">
-                <table class="flex-1">
-                  <thead>
-                    <tr class="bg-white">
-                      <th class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-120 px-4 py-3 text-left text-[#121416] w-[400px] text-sm font-medium leading-normal">Name</th>
-                      <th class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-240 px-4 py-3 text-left text-[#121416] w-[400px] text-sm font-medium leading-normal">
-                        Entry Time
-                      </th>
-                      <th class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-360 px-4 py-3 text-left text-[#121416] w-[400px] text-sm font-medium leading-normal">
-                        Exit Time
-                      </th>
-                      <th class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-480 px-4 py-3 text-left text-[#121416] w-[400px] text-sm font-medium leading-normal">
-                        Duration
-                      </th>
+        <section id="recent-entries">
+            <h3>Recent Entries</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Passenger Name</th>
+                        <th>Flight Number</th>
+                        <th>Entry Time</th>
+                        <th>Status</th>
                     </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-t border-t-[#dde1e3]">
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-120 h-[72px] px-4 py-2 w-[400px] text-[#121416] text-sm font-normal leading-normal">
-                        Sophia Clark
-                      </td>
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-240 h-[72px] px-4 py-2 w-[400px] text-[#6a7681] text-sm font-normal leading-normal">10:00 AM</td>
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-360 h-[72px] px-4 py-2 w-[400px] text-[#6a7681] text-sm font-normal leading-normal">11:30 AM</td>
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-480 h-[72px] px-4 py-2 w-[400px] text-[#6a7681] text-sm font-normal leading-normal">
-                        1 hour 30 minutes
-                      </td>
-                    </tr>
-                    <tr class="border-t border-t-[#dde1e3]">
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-120 h-[72px] px-4 py-2 w-[400px] text-[#121416] text-sm font-normal leading-normal">
-                        Ethan Bennett
-                      </td>
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-240 h-[72px] px-4 py-2 w-[400px] text-[#6a7681] text-sm font-normal leading-normal">10:15 AM</td>
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-360 h-[72px] px-4 py-2 w-[400px] text-[#6a7681] text-sm font-normal leading-normal">12:00 PM</td>
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-480 h-[72px] px-4 py-2 w-[400px] text-[#6a7681] text-sm font-normal leading-normal">
-                        1 hour 45 minutes
-                      </td>
-                    </tr>
-                    <tr class="border-t border-t-[#dde1e3]">
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-120 h-[72px] px-4 py-2 w-[400px] text-[#121416] text-sm font-normal leading-normal">
-                        Olivia Carter
-                      </td>
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-240 h-[72px] px-4 py-2 w-[400px] text-[#6a7681] text-sm font-normal leading-normal">10:30 AM</td>
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-360 h-[72px] px-4 py-2 w-[400px] text-[#6a7681] text-sm font-normal leading-normal">11:45 AM</td>
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-480 h-[72px] px-4 py-2 w-[400px] text-[#6a7681] text-sm font-normal leading-normal">
-                        1 hour 15 minutes
-                      </td>
-                    </tr>
-                    <tr class="border-t border-t-[#dde1e3]">
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-120 h-[72px] px-4 py-2 w-[400px] text-[#121416] text-sm font-normal leading-normal">
-                        Liam Harper
-                      </td>
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-240 h-[72px] px-4 py-2 w-[400px] text-[#6a7681] text-sm font-normal leading-normal">11:00 AM</td>
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-360 h-[72px] px-4 py-2 w-[400px] text-[#6a7681] text-sm font-normal leading-normal">12:30 PM</td>
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-480 h-[72px] px-4 py-2 w-[400px] text-[#6a7681] text-sm font-normal leading-normal">
-                        1 hour 30 minutes
-                      </td>
-                    </tr>
-                    <tr class="border-t border-t-[#dde1e3]">
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-120 h-[72px] px-4 py-2 w-[400px] text-[#121416] text-sm font-normal leading-normal">
-                        Ava Foster
-                      </td>
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-240 h-[72px] px-4 py-2 w-[400px] text-[#6a7681] text-sm font-normal leading-normal">11:15 AM</td>
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-360 h-[72px] px-4 py-2 w-[400px] text-[#6a7681] text-sm font-normal leading-normal">12:45 PM</td>
-                      <td class="table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-480 h-[72px] px-4 py-2 w-[400px] text-[#6a7681] text-sm font-normal leading-normal">
-                        1 hour 30 minutes
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <style>
-                          @container(max-width:120px){.table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-120{display: none;}}
-                @container(max-width:240px){.table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-240{display: none;}}
-                @container(max-width:360px){.table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-360{display: none;}}
-                @container(max-width:480px){.table-6ba6ff9c-248d-4330-b280-df2f1f3b277e-column-480{display: none;}}
-              </style>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </body>
+                </thead>
+                <tbody id="recentEntriesTableBody">
+                    <tr><td colspan="4">Loading...</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Prima Vista Lounge. All rights reserved.</p>
+    </footer>
+
+    <script src="static/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof checkAuthentication === 'function') {
+                checkAuthentication('dashboard.html');
+            } else {
+                console.error('auth.js or checkAuthentication function not loaded');
+                // Fallback or redirect if critical
+                window.location.href = 'login.html';
+            }
+            
+            if (typeof setupLogoutButton === 'function') {
+                setupLogoutButton();
+            } else {
+                console.error('auth.js or setupLogoutButton function not loaded');
+            }
+
+            fetchDashboardStats();
+            fetchRecentEntries();
+        });
+
+        async function fetchDashboardStats() {
+            const currentOccupancyEl = document.getElementById('currentOccupancy');
+            const totalEntriesTodayEl = document.getElementById('totalEntriesToday');
+            const averageStayDurationEl = document.getElementById('averageStayDuration');
+
+            currentOccupancyEl.textContent = 'Loading...';
+            totalEntriesTodayEl.textContent = 'Loading...';
+            averageStayDurationEl.textContent = 'Loading...';
+            // In a more complex app, you might add/remove a 'loading' class to the parent elements
+
+            try {
+                const response = await fetch('/dashboard/stats');
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({ message: `HTTP error! status: ${response.status}` }));
+                    throw new Error(errorData.message);
+                }
+                const stats = await response.json();
+
+                currentOccupancyEl.textContent = stats.current_occupancy;
+                totalEntriesTodayEl.textContent = stats.total_entries_today;
+                averageStayDurationEl.textContent = `${stats.average_stay_duration_minutes.toFixed(2)} minutes`;
+            } catch (error) {
+                console.error('Failed to fetch dashboard stats:', error);
+                currentOccupancyEl.textContent = 'Error';
+                totalEntriesTodayEl.textContent = 'Error';
+                averageStayDurationEl.textContent = 'Error';
+                // Optionally, display the error message more prominently
+                // For example, add a general message element in the stats section:
+                // const statsMessageEl = document.getElementById('statsMessage');
+                // if(statsMessageEl) {
+                //     statsMessageEl.textContent = error.message;
+                //     statsMessageEl.className = 'message message-error';
+                // }
+            }
+        }
+
+        async function fetchRecentEntries() {
+            const tableBody = document.getElementById('recentEntriesTableBody');
+            tableBody.innerHTML = '<tr><td colspan="4" class="loading-message">Loading recent entries...</td></tr>';
+
+            try {
+                const response = await fetch('/dashboard/recent-entries');
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({ message: `HTTP error! status: ${response.status}` }));
+                    throw new Error(errorData.message);
+                }
+                const entries = await response.json();
+                tableBody.innerHTML = ''; // Clear loading row
+
+                if (entries.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="4">No recent entries found.</td></tr>';
+                    return;
+                }
+
+                entries.forEach(entry => {
+                    const row = tableBody.insertRow();
+                    row.insertCell().textContent = entry.passenger_name;
+                    row.insertCell().textContent = entry.flight_number;
+                    row.insertCell().textContent = new Date(entry.entry_time).toLocaleString();
+                    row.insertCell().textContent = entry.status;
+                });
+            } catch (error) {
+                console.error('Failed to fetch recent entries:', error);
+                tableBody.innerHTML = `<tr><td colspan="4" class="message message-error">Error loading recent entries: ${error.message}</td></tr>`;
+            }
+        }
+    </script>
+</body>
 </html>

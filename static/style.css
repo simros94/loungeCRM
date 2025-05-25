@@ -1,0 +1,440 @@
+/* General Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header and Navigation */
+header {
+    background-color: #35424a;
+    color: #ffffff;
+    padding: 1rem 0;
+    text-align: center;
+    border-bottom: #e8491d 3px solid;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+header nav {
+    margin-top: 10px;
+}
+
+header nav a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 5px; /* Apply border-radius to all nav links for consistency */
+}
+
+header nav a:hover {
+    background-color: #e8491d;
+    color: #ffffff; /* Ensure text color contrasts with hover background */
+}
+
+header nav a.active-link { /* Style for the currently active page link */
+    background-color: #e8491d;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Add a subtle hover for non-active links if desired, distinct from active state */
+header nav a:not(.active-link):hover {
+    background-color: #4a5c68; /* Slightly different hover for non-active */
+}
+
+/* Main Content Area */
+main {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+main h2 {
+    color: #35424a;
+    border-bottom: 2px solid #e8491d;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+main h3 {
+    color: #35424a;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+/* Forms */
+form {
+    margin-bottom: 20px;
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+form input[type="date"],
+form input[type="time"],
+form input[type="number"],
+form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* Important for width 100% */
+    transition: border-color 0.3s ease;
+}
+
+form input[type="text"]:focus,
+form input[type="password"]:focus,
+form input[type="email"]:focus,
+form input[type="date"]:focus,
+form input[type="time"]:focus,
+form input[type="number"]:focus,
+form select:focus {
+    border-color: #e8491d;
+    outline: none; /* Remove default browser outline if custom styling is applied */
+    box-shadow: 0 0 5px rgba(232, 73, 29, 0.5); /* Optional: add a subtle glow */
+}
+
+
+form button[type="submit"],
+button {
+    display: inline-block;
+    background-color: #35424a;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form button[type="submit"]:hover,
+button:hover {
+    background-color: #e8491d;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+form button[type="submit"]:focus,
+button:focus {
+    outline: 2px solid #e8491d; /* Accessibility: clear focus indicator */
+    outline-offset: 2px;
+}
+
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #35424a;
+    color: #ffffff;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Messages (Success/Error) */
+/* Standardized Messages (Success/Error/Loading) */
+.message {
+    padding: 12px 15px;
+    margin: 15px 0;
+    border-radius: 5px;
+    font-weight: bold;
+    border: 1px solid transparent;
+    text-align: center;
+}
+
+.message-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.message-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+.loading-message {
+    background-color: #e2e3e5;
+    color: #383d41;
+    border-color: #d6d8db;
+}
+
+/* Remove old specific message styling if all are converted to use .message, .message-success, etc. */
+/* Example: p#message, p#loungeDetailsMessage, ... can be removed if they now use the new classes */
+/* For now, I'll leave them in case some JS code still targets IDs with direct style manipulation,
+   but ideally, JS should toggle classes like 'message-success' or 'message-error'. */
+
+
+/* Specific Sections */
+#stats .stats-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+#stats .stat-item {
+    background-color: #eef;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px;
+    flex-basis: 200px; /* Grow but have a base size */
+    text-align: center;
+}
+
+#stats .stat-item h4 {
+    margin-top: 0;
+}
+
+.search-container {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+.search-container input[type="text"]{
+    flex-grow: 1;
+}
+
+.filter-tabs {
+    margin-bottom: 15px;
+}
+
+.filter-tabs button {
+    margin-right: 5px;
+    background-color: #ddd;
+    color: #333;
+}
+
+.filter-tabs button.active-filter {
+    background-color: #e8491d; /* Use accent color for active tab */
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #35424a;
+    color: #ffffff;
+    margin-top: 30px;
+}
+
+/* Admin only controls - default hidden, shown by JS */
+.admin-only-control, .admin-only-section {
+    /* display: none; /* JS will manage this based on role */
+}
+
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 10% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button-small {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    margin-right: 5px;
+}
+.button-danger {
+    background-color: #dc3545;
+}
+.button-danger:hover {
+    background-color: #c82333;
+}
+.button-success {
+    background-color: #28a745;
+}
+.button-success:hover {
+    background-color: #218838;
+}
+
+/* Ensure inputs inside modal are also full width */
+.modal-content input[type="text"],
+.modal-content input[type="password"],
+.modal-content select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 10px; /* Add some space between inputs in modal */
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.modal-content button[type="submit"] {
+    margin-top: 10px;
+}
+#editUserModal .modal-content {
+    width: 450px; /* Slightly wider for better form layout */
+    max-width: 90%;
+}
+#editUserModal input, 
+#editUserModal select {
+    margin-bottom: 18px; /* Increased spacing */
+}
+
+/* Chart Styles for report.html */
+.chart-container {
+    display: flex;
+    align-items: flex-end; /* Align bars from the bottom */
+    justify-content: space-around; /* Distribute bars or use 'center' if preferred */
+    height: 250px; /* Overall height of the chart area */
+    border: 1px solid #ddd;
+    padding: 20px 10px 10px 10px; /* Padding around the chart */
+    margin-top: 20px;
+    margin-bottom: 30px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    overflow-x: auto; /* Allow horizontal scrolling if many bars */
+    overflow-y: hidden;
+}
+
+.chart-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 8px; /* Spacing between bars */
+    text-align: center;
+    min-width: 40px; /* Minimum width for each bar and its label */
+}
+
+.chart-bar {
+    width: 35px; /* Width of each bar */
+    background-color: #35424a; /* Bar color */
+    transition: height 0.5s ease-out; /* Animation for height changes */
+    position: relative; /* For tooltips or value display if added later */
+}
+
+.chart-bar:hover {
+    background-color: #e8491d; /* Bar color on hover */
+}
+
+.chart-label {
+    font-size: 12px;
+    color: #333;
+    margin-top: 8px; /* Space between bar and label */
+    /* white-space: nowrap; /* Prevent labels from wrapping if too long */
+    /* transform: rotate(-45deg); /* Rotate labels if they overlap */
+    /* text-overflow: ellipsis; */
+    /* overflow: hidden; */
+}
+
+/* User Role Styles for settings.html user table */
+.role-admin {
+    font-weight: bold;
+    color: #e8491d; /* Accent color for admin */
+    /* Or use a badge-like style: */
+    /* background-color: #e8491d; */
+    /* color: white; */
+    /* padding: 3px 6px; */
+    /* border-radius: 4px; */
+    /* font-size: 0.9em; */
+}
+
+.role-staff {
+    color: #35424a; /* Standard dark color for staff */
+    /* Or use a badge-like style: */
+    /* background-color: #5bc0de; */ /* A different color for staff badges */
+    /* color: white; */
+    /* padding: 3px 6px; */
+    /* border-radius: 4px; */
+    /* font-size: 0.9em; */
+}
+
+
+/* Utility class for visually hidden elements (for accessibility with screen readers) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Styling for required field indicators (if using JS to add them or via ::after) */
+label.required::after {
+    content: " *";
+    color: #e8491d;
+    font-weight: bold;
+}

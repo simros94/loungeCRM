@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger Records - Prima Vista Lounge</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Prima Vista Lounge</h1>
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="checkin.html">Check-In</a>
+            <a href="passengerrecord.html">Passenger Records</a>
+            <a href="reservation.html">Reservations</a>
+            <a href="report.html">Reports</a>
+            <a href="settings.html">Settings</a>
+            <a href="#" id="logoutButton">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Passenger Records</h2>
+        <div class="search-container">
+            <input type="text" id="searchQuery" placeholder="Search by name or flight number...">
+            <button id="searchButton">Search</button>
+        </div>
+        <p id="message"></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Passenger Name</th>
+                    <th>Flight Number</th>
+                    <th>Entry Time</th>
+                    <th>Exit Time</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="passengerRecordsTableBody">
+                <tr><td colspan="6">Enter a search query or leave blank to see all.</td></tr>
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2023 Prima Vista Lounge. All rights reserved.</p>
+    </footer>
+
+    <script src="static/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof checkAuthentication === 'function') {
+                checkAuthentication('passengerrecord.html');
+            } else {
+                console.error('auth.js or checkAuthentication function not loaded');
+                window.location.href = 'login.html';
+            }
+            
+            if (typeof setupLogoutButton === 'function') {
+                setupLogoutButton();
+            } else {
+                console.error('auth.js or setupLogoutButton function not loaded');
+            }
+
+            const searchButton = document.getElementById('searchButton');
+            const searchQueryInput = document.getElementById('searchQuery');
+
+            searchButton.addEventListener('click', fetchPassengerRecords);
+            searchQueryInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    fetchPassengerRecords();
+                }
+            });
+            
+            // Optionally, load all records initially or prompt user to search
+            fetchPassengerRecords(); // Load all initially
+        });
+
+        async function fetchPassengerRecords() {
+            const query = document.getElementById('searchQuery').value;
+            const messageElement = document.getElementById('message');
+            const tableBody = document.getElementById('passengerRecordsTableBody');
+            
+            tableBody.innerHTML = `<tr><td colspan="6" class="loading-message">Loading passenger records...</td></tr>`;
+            messageElement.textContent = ''; // Clear previous page-level messages
+            messageElement.className = 'message'; // Reset class
+
+            try {
+                const response = await fetch(`/passengers?search_query=${encodeURIComponent(query)}`);
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({ message: `HTTP error! status: ${response.status}` }));
+                    throw new Error(errorData.message);
+                }
+                const passengers = await response.json();
+                tableBody.innerHTML = ''; // Clear loading or previous results
+
+                if (passengers.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="6">No passengers found matching your query.</td></tr>';
+                    return;
+                }
+
+                passengers.forEach(passenger => {
+                    if (passenger.lounge_entries.length > 0) {
+                        passenger.lounge_entries.forEach(entry => {
+                            const row = tableBody.insertRow();
+                            row.insertCell().textContent = passenger.name;
+                            row.insertCell().textContent = passenger.flight_number;
+                            row.insertCell().textContent = entry.entry_time ? new Date(entry.entry_time).toLocaleString() : 'N/A';
+                            row.insertCell().textContent = entry.exit_time ? new Date(entry.exit_time).toLocaleString() : 'N/A';
+                            row.insertCell().textContent = entry.status;
+                            
+                            const actionCell = row.insertCell();
+                            if (entry.status === 'active') {
+                                const exitButton = document.createElement('button');
+                                exitButton.textContent = 'Exit Passenger';
+                                exitButton.classList.add('button-small', 'button-danger'); 
+                                exitButton.onclick = () => exitPassenger(entry.id);
+                                actionCell.appendChild(exitButton);
+                            } else {
+                                actionCell.textContent = 'N/A';
+                            }
+                        });
+                    } 
+                    // else {
+                        // If you want to show passengers even with no entries:
+                        // const row = tableBody.insertRow();
+                        // row.insertCell().textContent = passenger.name;
+                        // row.insertCell().textContent = passenger.flight_number;
+                        // row.insertCell().textContent = 'No lounge entries';
+                        // row.insertCell().colSpan = 3; 
+                        // row.insertCell(); // Empty cell for status
+                        // row.insertCell(); // Empty cell for action
+                    // }
+                });
+            } catch (error) {
+                console.error('Failed to fetch passenger records:', error);
+                tableBody.innerHTML = `<tr><td colspan="6" class="message message-error">Error loading records: ${error.message}</td></tr>`;
+                // messageElement.textContent = error.message || 'Failed to load records.';
+                // messageElement.className = 'message message-error';
+            }
+        }
+
+        async function exitPassenger(entryId) {
+            const messageElement = document.getElementById('message');
+            messageElement.textContent = ''; 
+            messageElement.className = 'message';
+
+            if (!confirm('Are you sure you want to mark this passenger as exited?')) {
+                return;
+            }
+            
+            messageElement.textContent = 'Processing request...';
+            messageElement.className = 'message loading-message';
+
+            try {
+                const response = await fetch(`/passengers/${entryId}/exit`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ exit_time: new Date().toISOString() }) 
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    messageElement.textContent = data.message || 'Passenger exited successfully!';
+                    messageElement.className = 'message message-success';
+                    fetchPassengerRecords(); // Refresh the table
+                } else {
+                    messageElement.textContent = data.message || 'Failed to exit passenger.';
+                    messageElement.className = 'message message-error';
+                }
+            } catch (error) {
+                console.error('Error exiting passenger:', error);
+                messageElement.textContent = 'An error occurred while exiting the passenger.';
+                messageElement.className = 'message message-error';
+            }
+        }
+    </script>
+</body>
+</html>

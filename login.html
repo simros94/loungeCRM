@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Prima Vista Lounge</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Prima Vista Lounge</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="login.html" class="active-link">Login</a>
+            <!-- Dashboard link might be removed or handled by auth.js redirection if logged in -->
+            <!-- <a href="dashboard.html">Dashboard</a> -->
+        </nav>
+    </header>
+    <main>
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <p id="message"></p>
+    </main>
+    <footer>
+        <p>&copy; 2023 Prima Vista Lounge. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const messageElement = document.getElementById('message');
+
+            messageElement.textContent = 'Logging in...';
+            messageElement.className = 'message loading-message';
+
+            try {
+                const response = await fetch('/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    messageElement.textContent = 'Login successful! Redirecting...';
+                    messageElement.className = 'message message-success';
+                    localStorage.setItem('loungeUser', JSON.stringify(data.user));
+                    // Add a small delay for the user to see the success message before redirecting
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1000); 
+                } else {
+                    throw new Error(data.message || 'Login failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                messageElement.textContent = error.message;
+                messageElement.className = 'message message-error';
+            }
+        });
+    </script>
+    <script>
+        // Check if user is already logged in
+        (async () => {
+            try {
+                const response = await fetch('/auth/status');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.user) {
+                        window.location.href = 'dashboard.html';
+                    }
+                }
+            } catch (error) {
+                console.warn('Error checking auth status on login page:', error);
+                // Do not redirect, allow login attempt
+            }
+        })();
+    </script>
+</body>
+</html>
